@@ -1,0 +1,3 @@
+To setup, define the PDFCROWD_USER and PDFCROWD_API_KEY environment variables to match your HTML to PDF api credentials for pdfcrowd.com.
+To (optionally) restrict access, define the NODE_API_KEY environment variable.
+All GET request params except api_key, url and filename are forwarded to the pdfcrowd api endpoint.

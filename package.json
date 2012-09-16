@@ -1,0 +1,11 @@
+{
+  "name": "pdfcrowd-proxy",
+  "version": "0.0.1",
+  "dependencies": {
+    "pdfcrowd": "1.0.3"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
+}
