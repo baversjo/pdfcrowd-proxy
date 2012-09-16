@@ -3,12 +3,12 @@ var url = require('url');
 var pdf = require('pdfcrowd');
 
 var api_key = process.env.NODE_API_KEY;
+var pdfc = new pdf.Pdfcrowd(process.env.PDFCROWD_USER,process.env.PDFCROWD_API_KEY);
 
 http.createServer(function (req, res) {
   var req_params = url.parse(req.url,true);
   var params = req_params.query;
-  var pdfc = new pdf.Pdfcrowd(process.env.PDFCROWD_USER,
-    process.env.PDFCROWD_API_KEY);
+
     
   var pdf_url = params.url,
   filename = params.filename,
