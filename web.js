@@ -58,8 +58,8 @@ http.createServer(function (req, res) {
     var wait_time = parseInt(params['wait_time']);
     
     setTimeout(function(){
-      res.writeHead(200, {'Content-Type': 'text/plain'});
-      res.end('done\n');
+      res.writeHead(200, {'Content-Type': 'text/javascript'});
+      res.end('proxy_wait_cb([]);\n');
     },wait_time);
     
   }else{
