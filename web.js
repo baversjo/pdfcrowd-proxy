@@ -8,11 +8,12 @@ var pdfc = new pdf.Pdfcrowd(process.env.PDFCROWD_USER,process.env.PDFCROWD_API_K
 http.createServer(function (req, res) {
   var req_params = url.parse(req.url,true);
   var params = req_params.query;
-  var action = params['action'] || 'pdf';
+  var action = params['action'];
+  if(!action && params['url']){
+    action = 'pdf';
+  }
   var param_api_key = params.api_key;
   
-  delete params['url'];
-  delete params['filename'];
   delete params['api_key'];
   
   if(api_key && param_api_key != api_key){
@@ -24,6 +25,9 @@ http.createServer(function (req, res) {
   if(action == 'pdf'){    
     var pdf_url = params.url,
     filename = params.filename;
+    
+    delete params['url'];
+    delete params['filename'];
   
     res.writeHead(200, {'Content-Type': 'application/pdf',
       'Content-Disposition': 'attachment; filename="' + (filename || 'generated') + '.pdf"'
