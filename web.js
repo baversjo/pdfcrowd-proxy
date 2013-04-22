@@ -32,21 +32,27 @@ http.createServer(function (req, res) {
     res.writeHead(200, {'Content-Type': 'application/pdf',
       'Content-Disposition': 'attachment; filename="' + (filename || 'generated') + '.pdf"'
     });
-  
-    pdfc.convertURI(pdf_url,new function(){
-      this.pdf = function(stream){
-        stream.on('data',function(buffer){
-          res.write(buffer);
-        })
-      }
-      this.end = function(){
-        res.end();
-      }
-      this.error = function(errorMessage, statusCode){
-        res.end('error ' + statusCode + ', ' + errorMessage);
-      }
+    
+    try{
+      pdfc.convertURI(pdf_url,new function(){
+        this.pdf = function(stream){
+          stream.on('data',function(buffer){
+            res.write(buffer);
+          })
+        }
+        this.end = function(){
+          res.end();
+        }
+        this.error = function(errorMessage, statusCode){
+          res.end('error ' + statusCode + ', ' + errorMessage);
+        }
 
-    },params);
+      },params);
+    }
+    catch(err){
+      res.writeHead(400, {'Content-Type': 'text/plain'});
+      res.end('Invalid pdf URL specified\n');
+    }
   }
   else if(action == 'wait'){
     var wait_time = parseInt(params['wait_time']);
